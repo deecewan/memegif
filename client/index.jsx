@@ -1,3 +1,6 @@
+/* eslint-env browser */
+/* eslint-global socket */
+
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -18,6 +21,15 @@ store.dispatch({
     timeStart: 0,
     timeEnd: 10,
   },
+});
+
+console.log(window.socket);
+
+window.socket.on('chunk', (...args) => {
+  store.dispatch({
+    type: 'TESTING_SOCKET',
+    value: args,
+  });
 });
 
 render(

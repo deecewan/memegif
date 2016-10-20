@@ -71,6 +71,10 @@ io.on('connection', socket => {
       }, 1000);
     }
   });
+
+  setTimeout(() => {
+    socket.emit('chunk', 'testing from server');
+  }, 4000);
 });
 
 server.listen(3000, '0.0.0.0', err => {
