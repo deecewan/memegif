@@ -9,6 +9,17 @@ import store from './store';
 
 injectTapEventPlugin();
 
+// initial state
+store.dispatch({
+  type: 'VIDEO_ADD_CHUNK',
+  value: {
+    id: 1,
+    gifUrl: 'http://i.imgur.com/sxc9H2J.mp4',
+    timeStart: 0,
+    timeEnd: 10,
+  },
+});
+
 render(
   <Provider store={store}>
     <MaterialThemeProvider>

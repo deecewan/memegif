@@ -19,7 +19,8 @@ const Video = new Record({
 
 function addChunk(state, chunk) {
   const video = new Video(chunk);
-  return state.push(video);
+  const chunks = state.get('chunks').push(video);
+  return state.set('chunks', chunks);
 }
 
 function updateChunk(state, update) {

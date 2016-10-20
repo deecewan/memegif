@@ -6,12 +6,14 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import env from 'dotenv';
+import Socket from 'socket.io';
 
 env.config();
 
 const app = express();
 if (process.env.NODE_ENV === 'development') {
-  const config = require('./webpack.config.babel').default;
+  const config = require('./webpack.config.babel').default; // eslint-disable-line global-require
+
   const compiler = webpack(config);
 
 // Serve hot-reloading bundle to client
@@ -44,12 +46,33 @@ if (process.env.NODE_ENV === 'development') {
     });
   });
 } else {
-  const routes = require('./out').default; // eslint-disable-line global-require
+  /* eslint-disable global-require, import/no-unresolved */
+  const routes = require('./out').default;
+  /* eslint-enable */
 
   app.use(routes);
 }
 
 const server = http.createServer(app);
+const io = new Socket(server);
+
+io.on('connection', socket => {
+  console.log('connection received');
+  // console.log(socket);
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+  socket.on('message', data => {
+    if (typeof data === 'function') {
+      setTimeout(() => {
+        data('Server');
+      }, 1000);
+    }
+  });
+});
+
 server.listen(3000, '0.0.0.0', err => {
   if (err) throw err;
 
