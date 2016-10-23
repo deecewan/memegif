@@ -14,6 +14,7 @@ export function submitUrl(value) {
   return async dispatch => {
     // get the actual value from the url
     const id = (value.match(youtubeRegex)[3]).split('?')[0]; // drop any query string
+    window.socket.emit('register', { videoId: id });
     axios(`/video/${id}`)
       .then(res => {
         dispatch(videoActions.addInfo(res.data));

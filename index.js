@@ -11,6 +11,23 @@ import Socket from 'socket.io';
 env.config();
 
 const app = express();
+
+const server = http.createServer(app);
+const io = new Socket(server);
+
+io.on('connection', socket => {
+  console.log('connection received');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+
+  socket.on('register', data => {
+    socket.join(data.videoId);
+  });
+});
+
 if (process.env.NODE_ENV === 'development') {
   const config = require('./webpack.config.babel').default; // eslint-disable-line global-require
 
@@ -23,7 +40,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(webpackHotMiddleware(compiler));
 
   app.use((req, res, next) => {
-    require('./server').default(req, res, next); // eslint-disable-line global-require
+    require('./server').default(io)(req, res, next); // eslint-disable-line global-require
   });
 
   const watcher = chokidar.watch('./server');
@@ -52,30 +69,6 @@ if (process.env.NODE_ENV === 'development') {
 
   app.use(routes);
 }
-
-const server = http.createServer(app);
-const io = new Socket(server);
-
-io.on('connection', socket => {
-  console.log('connection received');
-  // console.log(socket);
-
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-
-  socket.on('message', data => {
-    if (typeof data === 'function') {
-      setTimeout(() => {
-        data('Server');
-      }, 1000);
-    }
-  });
-
-  setTimeout(() => {
-    socket.emit('chunk', 'testing from server');
-  }, 4000);
-});
 
 server.listen(3000, '0.0.0.0', err => {
   if (err) throw err;

@@ -19,7 +19,7 @@ const Video = new Record({
 
 function addChunk(state, chunk) {
   const video = new Video(chunk);
-  const chunks = state.get('chunks').push(video);
+  const chunks = state.get('chunks').push(video).sort((a, b) => a.timeStart - b.timeStart);
   return state.set('chunks', chunks);
 }
 

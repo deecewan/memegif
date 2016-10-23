@@ -25,8 +25,7 @@ const styles = {
 };
 
 function getChunks(chunks) {
-  console.log(chunks);
-  return chunks.map(chunk => <VideoChunk {...chunk.toJS()} />).toJS();
+  return chunks.map((chunk, i) => <VideoChunk key={i} {...chunk.toJS()} />).toJS();
 }
 
 const App = props => (

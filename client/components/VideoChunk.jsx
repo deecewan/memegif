@@ -22,10 +22,8 @@ const styles = {
 
 
 const VideoChunk = props => (
-  <Paper zDepth={1} key={props.id} style={styles.paper}>
-    <video
-      loop
-      autoPlay
+  <Paper zDepth={1} style={styles.paper}>
+    <img
       alt={`Video Chunk from ${props.timeStart} to ${props.timeEnd}`}
       src={props.gifUrl}
       style={styles.image}
@@ -35,7 +33,7 @@ const VideoChunk = props => (
 );
 
 VideoChunk.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
   gifUrl: PropTypes.string,
   timeStart: PropTypes.number,
   timeEnd: PropTypes.number,
