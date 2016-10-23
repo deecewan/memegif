@@ -13,7 +13,7 @@ env.config();
 const app = express();
 
 const server = http.createServer(app);
-const io = new Socket(server);
+const io = new Socket(server, { serveClient: false });
 
 io.on('connection', socket => {
   console.log('connection received');
