@@ -13,7 +13,7 @@ import App from './components/App';
 import store from './store';
 import * as video from './actions/video';
 
-import './styles/index.pcss';
+import './styles/index.pcss'; // global styles
 
 injectTapEventPlugin();
 

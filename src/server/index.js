@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import redisStore from 'connect-redis';
 import morgan from 'morgan';
+import { middleware } from './lib/passport';
 
 import developer from './lib/developer';
 
@@ -39,6 +40,8 @@ export default function (io) {
     resave: true,
     saveUninitialized: true,
   }));
+
+  app.use(middleware);
 
   app.use((req, res, next) => {
     // debug middleware

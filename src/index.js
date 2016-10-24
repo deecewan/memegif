@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === 'development') {
   }));
   app.use(webpackHotMiddleware(compiler));
 
-  const watcher = chokidar.watch('./server');
+  const watcher = chokidar.watch('./src/server');
 
   watcher.on('ready', () => {
     watcher.on('all', () => {

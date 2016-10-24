@@ -23,13 +23,12 @@ export default class Database {
     }
     this.models = {};
     this.sequelize = new Sequelize(this.url, {
-      dialect: 'postgres',
       logging: (...args) => {
         if ([
           'development',
           // 'testing',
-        ].indexOf(process.env.NODE_ENV) > 0) {
-          console.log(args); // eslint-disable-line no-console
+        ].indexOf(process.env.NODE_ENV) > -1) {
+          console.log(...args); // eslint-disable-line no-console
         }
       },
     });
