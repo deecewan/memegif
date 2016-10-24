@@ -1,11 +1,17 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
 import ImmutableProps from 'react-immutable-proptypes';
 
 import UrlBar from './UrlBar';
 import VideoInfo from './VideoInfo';
 import VideoChunk from './VideoChunk';
+import Menu from './Menu';
+import LoginModal from './LoginModal';
+
+// actions we need
+import * as settings from '../actions/settings';
 
 import styles from '../styles/App.pcss';
 
@@ -18,8 +24,11 @@ function AppComponent(props) {
     <div>
       <AppBar
         title="MemeGif"
-        iconClassNameRight="muidocs-icon-navigation-expand-more"
+        iconElementLeft={<IconButton iconClassName="material-icons">menu</IconButton>}
+        onLeftIconButtonTouchTap={props.toggleDrawer}
       />
+      <Menu />
+      <LoginModal />
       <div className={styles.container}>
         <UrlBar {...props} />
         <VideoInfo {...props} />
@@ -33,6 +42,7 @@ AppComponent.propTypes = {
   url: PropTypes.string,
   name: PropTypes.string,
   chunks: ImmutableProps.list,
+  toggleDrawer: PropTypes.func,
 };
 
 function mapStateToProps(state) {
@@ -43,6 +53,6 @@ function mapStateToProps(state) {
   };
 }
 
-const App = connect(mapStateToProps)(AppComponent);
+const App = connect(mapStateToProps, { ...settings })(AppComponent);
 
 export { App as default };

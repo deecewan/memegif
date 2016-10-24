@@ -43,6 +43,9 @@ passport.deserializeUser((id, done) => {
       id,
     },
     include: [db.models.Search],
+    order: [
+      [db.models.Search, 'createdAt', 'desc'],
+    ],
   })
     .then(user => {
       if (!user) {

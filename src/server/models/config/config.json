@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "memegif",
+    "password": "memegif",
+    "database": "memegif",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "memegif",
+    "password": "memegif",
+    "database": "memegif_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "memegif",
+    "password": "memegif",
+    "database": "memegif",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

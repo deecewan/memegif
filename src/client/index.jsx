@@ -12,6 +12,7 @@ import io from 'socket.io-client/socket.io';
 import App from './components/App';
 import store from './store';
 import * as video from './actions/video';
+import * as user from './actions/user';
 
 import './styles/index.pcss'; // global styles
 
@@ -22,6 +23,20 @@ window.socket = io();
 
 window.socket.on('chunk_received', data => {
   store.dispatch(video.addChunk(data));
+});
+
+// try reload existing user data
+fetch('/api/v1/user', {
+  credentials: 'same-origin',
+}).then(res => {
+  if (res.ok) {
+    return res.json();
+  }
+  return null;
+}).then(json => {
+  if (json) {
+    store.dispatch(user.userLogin(json));
+  }
 });
 
 render(
