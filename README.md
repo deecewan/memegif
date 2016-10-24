@@ -1,4 +1,4 @@
-# memegig
+# memegif
 
 Generate gifs based on YouTube videos.
 

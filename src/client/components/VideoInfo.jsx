@@ -1,22 +1,8 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 import Paper from 'material-ui/Paper';
 import ImmutableProps from 'react-immutable-proptypes';
+import styles from '../styles/VideoInfo.pcss';
 
-const styles = {
-  paper: {
-    marginTop: '2rem',
-    padding: '2rem',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  inner: {
-    display: 'inline-block',
-  },
-  title: {
-    marginLeft: '1rem',
-  },
-};
 
 /**
  * @return {null}
@@ -28,7 +14,7 @@ const VideoInfo = props => {
 
   if (props.videoInfo.get('title') === '') {
     return (
-      <Paper zDepth={1} style={styles}>
+      <Paper zDepth={1} className={styles.paper}>
         <p>Creating Gif from: {props.url}</p>
       </Paper>
     );
@@ -37,11 +23,11 @@ const VideoInfo = props => {
   const videoInfo = props.videoInfo.toJS();
 
   return (
-    <Paper zDepth={1} style={styles.paper}>
-      <div style={styles.inner}>
+    <Paper zDepth={1} className={styles.paper}>
+      <div className={styles.inner}>
         <img alt="Thumbnail" src={videoInfo.thumbnails.default.url} />
       </div>
-      <div style={{ ...styles.inner, ...styles.title }}>
+      <div className={styles.title}>
         <h3>{videoInfo.title}</h3>
         <h5>{videoInfo.channel}</h5>
       </div>
@@ -54,5 +40,4 @@ VideoInfo.propTypes = {
   videoInfo: ImmutableProps.map,
 };
 
-export default new Radium(VideoInfo);
-
+export default VideoInfo;

@@ -1,6 +1,9 @@
 node_modules/
-dist/
+out/
+static/bundle.js
 bower_components/
 .idea/
 .env
+.nyc_output/
+coverage/
 npm-debug.log

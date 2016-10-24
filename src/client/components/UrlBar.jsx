@@ -1,19 +1,10 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Radium from 'radium';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import * as url from '../actions/url';
-
-const styles = {
-  TextField: {
-    width: '80%',
-  },
-  Buttons: {
-    width: '10%',
-  },
-};
+import styles from '../styles/UrlBar.pcss';
 
 class UrlBar extends PureComponent {
 
@@ -62,13 +53,13 @@ class UrlBar extends PureComponent {
         <TextField
           errorText={this.state.error}
           floatingLabelText="YouTube URL"
-          style={styles.TextField}
+          className={styles.buttons}
           name="search-term"
           value={this.state.url}
           onChange={e => this.changeUrl(e.target.value)}
         />
         <FlatButton
-          style={styles.Buttons}
+          className={styles.buttons}
           label="Clear"
           onTouchTap={() => {
             this.setState({ url: '' });
@@ -76,7 +67,7 @@ class UrlBar extends PureComponent {
           }}
         />
         <RaisedButton
-          style={styles.Buttons}
+          className={styles.buttons}
           label="Submit"
           type="submit"
         />
@@ -100,4 +91,6 @@ class UrlBar extends PureComponent {
   }
 }
 
-export default connect(null, url)(new Radium(UrlBar));
+const Component = connect(null, url)(UrlBar);
+
+export { Component as default };

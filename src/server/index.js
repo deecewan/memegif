@@ -36,7 +36,6 @@ export default function (io) {
     resave: true,
     saveUninitialized: true,
   }));
-// passport goes here, if you're using it.
 
   app.use((req, res, next) => {
     // debug middleware
@@ -47,7 +46,7 @@ export default function (io) {
 
   app.use((err, req, res, next) => {
     console.log(err);
-    if (process.env.NODE_ENV === 'dev') {
+    if (process.env.NODE_ENV === 'development') {
       return res.status(500).json(err);
     }
     res.status(500).json({ message: 'An unexpected error has occurred.' +

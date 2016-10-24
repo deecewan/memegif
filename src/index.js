@@ -6,12 +6,16 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import env from 'dotenv';
+import chalk from 'chalk';
+import figlet from 'figlet';
 import Socket from 'socket.io';
+import reporter from './server/lib/webpackReporter';
+
+import { name } from '../package.json';
 
 env.config();
 
 const app = express();
-
 const server = http.createServer(app);
 const io = new Socket(server, { serveClient: false });
 
@@ -28,26 +32,31 @@ io.on('connection', socket => {
   });
 });
 
-if (process.env.NODE_ENV === 'development') {
-  const config = require('./webpack.config.babel').default; // eslint-disable-line global-require
+figlet.text(`Welcome to \n ${process.env.APPLICATION_NAME || name}`, {
+  verticalLayout: 'full',
+  kerning: 'fitted',
+}, (err, data) => {
+  if (!err) {
+    console.log(chalk.green(data));
+  }
+});
 
+if (process.env.NODE_ENV === 'development') {
+  const config = require('../webpack.config.babel.js').default; // eslint-disable-line
   const compiler = webpack(config);
 
 // Serve hot-reloading bundle to client
   app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
+    reporter,
   }));
   app.use(webpackHotMiddleware(compiler));
-
-  app.use((req, res, next) => {
-    require('./server').default(io)(req, res, next); // eslint-disable-line global-require
-  });
 
   const watcher = chokidar.watch('./server');
 
   watcher.on('ready', () => {
     watcher.on('all', () => {
-      console.log('Clearing /server/ module cache from server');
+      console.log(chalk.yellow('Hot-reloading server modules...'));
       Object.keys(require.cache).forEach(id => {
         if (/[\/\\]server[\/\\]/.test(id)) delete require.cache[id];
       });
@@ -62,18 +71,16 @@ if (process.env.NODE_ENV === 'development') {
       if (/[\/\\]client[\/\\]/.test(id)) delete require.cache[id];
     });
   });
-} else {
-  /* eslint-disable global-require, import/no-unresolved */
-  const routes = require('./out').default;
-  /* eslint-enable */
-
-  app.use(routes);
 }
 
-server.listen(3000, '0.0.0.0', err => {
+app.use((req, res, next) => {
+  require('./server').default(io)(req, res, next); // eslint-disable-line global-require
+});
+
+server.listen(process.env.PORT || 3000, '0.0.0.0', err => {
   if (err) throw err;
 
   const addr = server.address();
-
-  console.log('Listening at http://%s:%d', addr.address, addr.port);
+  console.log(chalk.blue.bold('Server Started!'));
+  console.log(chalk.cyan(`Listening at http://${addr.address}:${addr.port}`));
 });
