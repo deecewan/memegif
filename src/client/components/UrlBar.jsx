@@ -53,7 +53,7 @@ class UrlBar extends PureComponent {
         <TextField
           errorText={this.state.error}
           floatingLabelText="YouTube URL"
-          className={styles.buttons}
+          className={styles['text-field']}
           name="search-term"
           value={this.state.url}
           onChange={e => this.changeUrl(e.target.value)}
@@ -67,12 +67,8 @@ class UrlBar extends PureComponent {
           }}
         />
         <RaisedButton
+          label="I'm Feeling Lucky"
           className={styles.buttons}
-          label="Submit"
-          type="submit"
-        />
-        <RaisedButton
-          label="Or get a random one!"
           onTouchTap={() => {
             let current = 1;
             const time = setInterval(() => {
@@ -81,10 +77,19 @@ class UrlBar extends PureComponent {
               }
               this.setState({
                 url: UrlBar.randomUrl.substring(0, current),
+              }, () => {
+                if (this.state.url === UrlBar.randomUrl) {
+                  this.submitUrl();
+                }
               });
               return current++;
             }, 25);
           }}
+        />
+        <RaisedButton
+          className={styles.buttons}
+          label="Submit"
+          type="submit"
         />
       </form>
     );

@@ -1,6 +1,7 @@
 node_modules/
 out/
 static/bundle.js
+static/styles.css
 bower_components/
 .idea/
 .env

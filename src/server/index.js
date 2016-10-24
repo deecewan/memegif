@@ -5,6 +5,8 @@ import bodyParser from 'body-parser';
 import redisStore from 'connect-redis';
 import morgan from 'morgan';
 
+import developer from './lib/developer';
+
 import Database from './models/index';
 import routes from './routes';
 
@@ -23,6 +25,7 @@ export default function (io) {
     next();
   });
   app.use(morgan('dev'));
+  app.use(developer);
   app.use(cookieParser(process.env.SESSION_SECRET || 'youwontguessit'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
