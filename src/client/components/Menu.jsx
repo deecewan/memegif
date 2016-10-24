@@ -42,6 +42,9 @@ function getMenu(props) {
               key={i}
               primaryText={search.youtubeTitle}
               secondaryText={search.term}
+              onTouchTap={() =>
+                window.open(`https://youtu.be/${search.term}?utm_source=memegif`, '_blank')
+              }
             />);
           }
           return (
