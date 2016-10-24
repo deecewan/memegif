@@ -3,7 +3,6 @@ import Paper from 'material-ui/Paper';
 import ImmutableProps from 'react-immutable-proptypes';
 import styles from '../styles/VideoInfo.pcss';
 
-
 /**
  * @return {null}
  */
@@ -23,7 +22,7 @@ const VideoInfo = props => {
   const videoInfo = props.videoInfo.toJS();
 
   return (
-    <Paper zDepth={1} className={styles.paper}>
+    <Paper zDepth={1} className={styles.paper} onClick={() => window.open(props.url, '_blank')}>
       <div className={styles.inner}>
         <img alt="Thumbnail" src={videoInfo.thumbnails.default.url} />
       </div>
