@@ -28,6 +28,7 @@ router.get('/:id', (req, res) => {
       }
     });
     return res.status(200).json({
+      videoId,
       title,
       thumbnails,
       channelTitle,

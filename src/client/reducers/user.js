@@ -23,12 +23,26 @@ function logoutUser() {
   return initialState;
 }
 
+function addSearch(state, search) {
+  if (state.get('name') === null) {
+    return state;
+  }
+  const newSearch = new Search({
+    term: search.videoId,
+    type: 'url', // this is all we do right now.
+    youtubeTitle: search.title,
+  });
+  return state.set('searches', state.get('searches').unshift(newSearch));
+}
+
 export default function (state = initialState, action) {
   switch (action.type) {
     case actions.LOGIN:
       return loginUser(state, action.value);
     case actions.LOGOUT:
       return logoutUser();
+    case actions.ADD_SEARCH:
+      return addSearch(state, action.value);
     default:
       return state;
   }

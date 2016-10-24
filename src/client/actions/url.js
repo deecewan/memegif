@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import * as videoActions from './video';
+import * as userActions from './user';
 
 export const actions = {
   GET_TITLE: 'URL_GET_TITLE',
@@ -17,6 +18,7 @@ export function submitUrl(value) {
     window.socket.emit('register', { videoId: id });
     axios(`/video/${id}`)
       .then(res => {
+        dispatch(userActions.userAddSearch(res.data));
         dispatch(videoActions.addInfo(res.data));
       });
     return dispatch({

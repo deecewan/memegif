@@ -3,6 +3,7 @@ import { closeLoginModal } from './settings';
 export const actions = {
   LOGIN: 'USER_LOGIN',
   LOGOUT: 'USER_LOGOUT',
+  ADD_SEARCH: 'USER_ADD_SEARCH',
 };
 
 export function userLogin(user) {
@@ -15,6 +16,13 @@ export function userLogin(user) {
 function userLogout() {
   return {
     type: actions.LOGOUT,
+  };
+}
+
+export function userAddSearch(value) {
+  return {
+    value,
+    type: actions.ADD_SEARCH,
   };
 }
 
