@@ -1,0 +1,15 @@
+ version: '2'
+ services:
+   memegif:
+     build: .
+     ports:
+      - "3000:3000"
+     volumes:
+      - .:/app
+     depends_on:
+      - redis
+      - postgres
+   redis:
+     image: redis
+   postgres:
+     image: postgres

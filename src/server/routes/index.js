@@ -5,7 +5,7 @@ import fs from 'fs';
 const router = new Router();
 
 fs
-  .readdirSync(path.resolve('src', 'server', 'routes'))
+  .readdirSync(path.resolve(__dirname))
   .filter(file => (file.indexOf('.') !== 0) && (file !== 'index.js'))
   .forEach(file => {
     const routeName = file.substring(0, file.length - 3);
