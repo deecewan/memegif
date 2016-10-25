@@ -9,6 +9,7 @@ import VideoInfo from './VideoInfo';
 import VideoChunk from './VideoChunk';
 import Menu from './Menu';
 import LoginModal from './LoginModal';
+import SignUpModal from './SignUpModal';
 
 // actions we need
 import * as settings from '../actions/settings';
@@ -29,6 +30,7 @@ function AppComponent(props) {
       />
       <Menu />
       <LoginModal />
+      <SignUpModal />
       <div className={styles.container}>
         <UrlBar {...props} />
         <VideoInfo {...props} />

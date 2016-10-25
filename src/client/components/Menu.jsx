@@ -22,7 +22,7 @@ function getMenu(props) {
       <MenuItem key={2} onTouchTap={() => { props.openLoginModal(); props.closeDrawer(); }}>
         <FlatButton icon={<LockOpenIcon />} label="Login" />
       </MenuItem>,
-      <MenuItem key={3}>
+      <MenuItem key={3} onTouchTap={() => { props.openSignupModal(); props.closeDrawer(); }}>
         <FlatButton icon={<PersonAddIcon />} label="Sign Up" />
       </MenuItem>,
     ];

@@ -26,6 +26,14 @@ function closeLoginModal(state) {
   return state.setIn(['loginModal'], false);
 }
 
+function openSignupModal(state) {
+  return state.setIn(['signupModal'], true);
+}
+
+function closeSignupModal(state) {
+  return state.setIn(['signupModal'], false);
+}
+
 export default function (state = initialState, action) {
   switch (action.type) {
     case actions.OPEN_DRAWER:
@@ -38,6 +46,10 @@ export default function (state = initialState, action) {
       return openLoginModal(state);
     case actions.CLOSE_LOGIN_MODAL:
       return closeLoginModal(state);
+    case actions.OPEN_SIGNUP_MODAL:
+      return openSignupModal(state);
+    case actions.CLOSE_SIGNUP_MODAL:
+      return closeSignupModal(state);
     default:
       return state;
   }
