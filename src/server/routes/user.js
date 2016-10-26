@@ -32,7 +32,12 @@ router.post('/', async (req, res, next) => {
     if (err) {
       return next(err);
     }
-    return res.status(200).json(user.redacted);
+
+    const u = req.user.redacted;
+    if (!u.searches) {
+      u.searches = [];
+    }
+    return res.status(200).json(u);
   });
 });
 

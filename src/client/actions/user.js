@@ -1,4 +1,4 @@
-import { closeLoginModal } from './settings';
+import { closeLoginModal, closeSignupModal } from './settings';
 
 export const actions = {
   LOGIN: 'USER_LOGIN',
@@ -48,6 +48,31 @@ export function doLogin({ email, password }) {
       }
       // contains the
       dispatch(closeLoginModal());
+      return dispatch(userLogin(json));
+    });
+  };
+}
+
+export function doSignup(signupUser) {
+  return dispatch => {
+    fetch('/api/v1/user', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(signupUser),
+      credentials: 'same-origin',
+      mode: 'cors',
+    }).then(res => {
+      if (!res.ok) {
+        return alert('Error signing up!');
+      }
+      return res.json();
+    }).then(json => {
+      if (!json) {
+        return null;
+      }
+      dispatch(closeSignupModal());
       return dispatch(userLogin(json));
     });
   };
