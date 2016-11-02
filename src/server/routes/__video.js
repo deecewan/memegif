@@ -68,7 +68,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const { id, gifUrl, timeStart, timeEnd } = req.body;
   console.log(chalk.blue(`received chunk for ${id}: ${gifUrl}`));
-  req.io.sockets.in(id).emit('chunk_received', { id, gifUrl, timeStart, timeEnd });
+  req.io.sockets.in(id).in('all').emit('chunk_received', { id, gifUrl, timeStart, timeEnd });
   res.sendStatus(200);
 });
 

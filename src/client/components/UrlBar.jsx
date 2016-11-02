@@ -21,6 +21,7 @@ class UrlBar extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      feed: false,
       url: props.url,
       error: '',
     };
@@ -84,6 +85,18 @@ class UrlBar extends PureComponent {
               });
               return current++;
             }, 25);
+          }}
+        />
+        <RaisedButton
+          className={styles.buttons}
+          label={`${this.state.feed ? 'Unwatch' : 'Watch'} the feed`}
+          onClick={() => {
+            if (this.state.feed) {
+              window.socket.emit('leave_all');
+            } else {
+              window.socket.emit('join_all');
+            }
+            this.setState({ feed: !this.state.feed });
           }}
         />
         <RaisedButton

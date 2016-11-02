@@ -30,6 +30,16 @@ io.on('connection', socket => {
   socket.on('register', data => {
     socket.join(data.videoId);
   });
+
+  socket.on('join_all', () => {
+    console.log('Someone is watching all');
+    socket.join('all');
+  });
+
+  socket.on('leave_all', () => {
+    console.log('Someone is leaving all');
+    socket.leave('all');
+  });
 });
 
 figlet.text(`Welcome to \n ${process.env.APPLICATION_NAME || name}`, {
