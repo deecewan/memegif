@@ -10,4 +10,4 @@ WORKDIR /app
 RUN npm i -g yarn
 RUN yarn
 RUN yarn add bcrypt
-CMD npm start
+CMD npm run start:prod

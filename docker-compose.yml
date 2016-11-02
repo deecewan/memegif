@@ -1,11 +1,9 @@
  version: '2'
  services:
    memegif:
-     build: .
+     image: memegif
      ports:
       - "3000:3000"
-     volumes:
-      - .:/app
      depends_on:
       - redis
       - postgres
@@ -13,3 +11,21 @@
      image: redis
    postgres:
      image: postgres
+
+
+# Production version
+#version: '2'
+# services:
+#   memegif:
+#     image: 227965604500.dkr.ecr.ap-southeast-2.amazonaws.com/memegif:latest
+#     ports:
+#      - "80:3000"
+#     environment:
+#      - REDIS_ADDR=redis
+#     depends_on:
+#      - redis
+#      - postgres
+#   redis:
+#     image: redis
+#   postgres:
+#     image: postgres

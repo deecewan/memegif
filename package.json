@@ -12,6 +12,7 @@
     "report": "nyc report --reporter=html",
     "serve:dash": "NODE_ENV=development webpack-dashboard -- babel-node src/index.js",
     "serve:dev": "NODE_ENV=development babel-node src/index.js",
+    "start:prod": "NODE_ENV=development forever out/index.js",
     "start": "NODE_ENV=production node out/index.js",
     "test": "NODE_ENV=test nyc ava test/**/*.test.js"
   },
@@ -89,6 +90,7 @@
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-react": "^6.1.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "forever": "^0.15.3",
     "postcss-loader": "^1.0.0",
     "react": "^15.3.1",
     "react-addons-test-utils": "^15.3.2",
