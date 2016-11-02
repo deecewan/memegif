@@ -23,6 +23,7 @@
   "author": "David Buchan-Swanson (https://deecewan.github.io)",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.6.13",
     "axios": "^0.15.2",
     "babel-polyfill": "^6.13.0",
     "babel-runtime": "^6.11.6",

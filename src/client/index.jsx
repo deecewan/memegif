@@ -25,6 +25,13 @@ window.socket.on('chunk_received', data => {
   store.dispatch(video.addChunk(data));
 });
 
+window.socket.on('started_process', data => {
+  if (!data.success) {
+    // we've failed to start...alert the user to the fact
+    alert('Failed to start conversion.  Please try again later.');
+  }
+});
+
 // try reload existing user data
 fetch('/api/v1/user', {
   credentials: 'same-origin',
