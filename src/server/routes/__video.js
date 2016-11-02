@@ -45,6 +45,11 @@ router.get('/:id', (req, res) => {
       return res.sendStatus(400);
     }
 
+    if (!video || video.items.length < 1 || !video.items[0].snippet) {
+      console.log(chalk.red(videoId, 'got the better of youtube...'));
+      return res.sendStatus(404);
+    }
+
     const { title, thumbnails, channelTitle } = video.items[0].snippet;
     console.log(chalk.cyan('Processing started for', title, 'from', req.ip));
     db.models.Search.create({
