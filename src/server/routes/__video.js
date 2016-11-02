@@ -46,7 +46,7 @@ router.get('/:id', (req, res) => {
     }
 
     const { title, thumbnails, channelTitle } = video.items[0].snippet;
-    console.log(chalk.underline.cyan('Processing started for', title, 'from', req.ip));
+    console.log(chalk.cyan('Processing started for', title, 'from', req.ip));
     db.models.Search.create({
       type: 'url',
       term: videoId,
