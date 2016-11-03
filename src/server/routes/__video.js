@@ -15,7 +15,7 @@ function queueRequest(payload) {
   return new Promise((resolve, reject) => {
     sqs.sendMessage({
       MessageBody: JSON.stringify(payload),
-      QueueUrl: 'https://sqs.ap-southeast-2.amazonaws.com/682081164011/host_gif_party',
+      QueueUrl: 'https://sqs.ap-southeast-2.amazonaws.com/227965604500/host_gif_party',
     }, (err, data) => {
       if (err) {
         console.log(chalk.bgRed.white(err));
