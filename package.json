@@ -4,6 +4,7 @@
   "description": "Boilerplate for Express and React apps",
   "main": "index.js",
   "scripts": {
+    "deploy": "npm run build && npm run docker:deploy",
     "build": "npm run clean && npm run build:client && npm run build:server",
     "build:client": "webpack --config webpack.config.babel.js",
     "build:server": "babel src -d out",
@@ -12,9 +13,13 @@
     "report": "nyc report --reporter=html",
     "serve:dash": "NODE_ENV=development webpack-dashboard -- babel-node src/index.js",
     "serve:dev": "NODE_ENV=development babel-node src/index.js",
-    "start:prod": "NODE_ENV=development forever out/index.js",
+    "start:prod": "NODE_ENV=production forever out/index.js",
     "start": "NODE_ENV=production node out/index.js",
-    "test": "NODE_ENV=test nyc ava test/**/*.test.js"
+    "test": "NODE_ENV=test nyc ava test/**/*.test.js",
+    "docker:build": "docker build -t memegif .",
+    "docker:tag": "docker tag memegif:latest 227965604500.dkr.ecr.ap-southeast-2.amazonaws.com/memegif:latest",
+    "docker:push": "docker push 227965604500.dkr.ecr.ap-southeast-2.amazonaws.com/memegif:latest",
+    "docker:deploy": "npm run docker:build && npm run docker:tag && npm run docker:push"
   },
   "ava": {
     "babel": {
